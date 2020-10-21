@@ -3,17 +3,52 @@
 <head>
 	<meta charset="utf-8">
 	<script>
-		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+	
+		let setSearchEngine = function(){
+			let actions = {
+			"google":"https://www.google.com/search", 
+			"DuckDuckGo":"https://duckduckgo.com/",
+			"Bing":"https://www.bing.com/search/",
+			"Ask":"https://www.ask.com/web/"
+		};
+		let form = document.getElementById('searchForm');
+		let selectedEngine = document.querySelector("[name=engine]:checked")
+		let action = actions[selectedEngine.value];
+		form.setAttribute('action' , action);
+		}
+		window.addEventListener('load', function(){
+            let form = document.getElementById('searchForm');
+            form.addEventListener('submit', function(setSearchEngine){
+                let validateSearchEngineInput = document.querySelector("input[name=engine]");
+                let validateSearchStringInput = document.querySelector("input[name=q]"); 
+                if (!validateSearchEngineInput.value || !validateSearchStringInput.value) {
+                    alert("All fields are required");
+                    setSearchEngine.preventDefault();
+                  } else {
+                form.addEventListener('submit', setSearchEngine);
+                 }
+            });
+        });
+        window.addEventListener('load', function(){
+            let form = document.getElementById('searchForm');
+            form.addEventListener('submit', setSearchEngine);
+        });
+                alert("User Has Submitted Form"); 
+                alert("User has selected: " + validateSearchEngineInput.value);
+                alert("User has selected: " + validateSearchEngineInput.value + "");
+   
 	</script>
 </head>
 
 <body>
 
 	<form id="searchForm">
-    <!-- TODO: add form elements -->
+		<label><input type="text" name="q"/></label>
+		<label><input type="radio" name="engine" value="Google"/>Google</label>
+		<label><input type="radio" name="engine" value="DuckDuckGo"/>DuckDuckGo</label>
+		<label><input type="radio" name="engine" value="Bing"/>Bing</label>
+		<label><input type="radio" name="engine" value="Ask"/>Ask</label>
+		<label><input type="submit"  value="Go!"/></label>
 	</form>
 
 </body>
